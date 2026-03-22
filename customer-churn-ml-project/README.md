@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 ## Live Demo
 
-(Add your Streamlit link here)
+https://customer-churn-app-evvbftzwmmc75mvmju92jv.streamlit.app/
 
 ## Dataset
 
