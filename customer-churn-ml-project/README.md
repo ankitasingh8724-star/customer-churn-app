@@ -1,56 +1,67 @@
-# Customer Churn Prediction System
+# Customer Churn Prediction
 
-End-to-end, production-ready ML project for Telco customer churn prediction.
+## Project Overview
 
-## Dataset
+This project predicts whether a customer will leave a company using machine learning models.
 
-Place the dataset at:
+## Features
 
-`data/WA_Fn-UseC_-Telco-Customer-Churn.csv`
+- Data preprocessing
+- Model training
+- Churn prediction
+- Interactive dashboard
 
-## Setup
+## Tech Stack
 
-From the project directory:
+- Python
+- Pandas
+- Scikit-learn
+- XGBoost
+- Streamlit
+
+(Additional dependencies: NumPy, joblib, matplotlib; see `requirements.txt`.)
+
+## How to Run
 
 ```bash
-cd customer-churn-ml-project
-python3 -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Train the Models
+Train a model (expects the Telco churn CSV under `data/`) and save the artifact used by the app:
 
 ```bash
-python3 src/train_model.py --data_path data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+python src/train_model.py --data_path data/WA_Fn-UseC_-Telco-Customer-Churn.csv
 ```
 
-What the training pipeline does:
-
-1. Safe dataset loading with clear errors
-2. Data fixes:
-   - Converts `TotalCharges` to numeric
-   - Treats blank values as missing
-   - Drops rows with missing values
-3. One-hot encodes categorical features using `pd.get_dummies`
-4. Splits into train/test
-5. Trains:
-   - Logistic Regression
-   - Random Forest
-   - XGBoost (with numeric-feature safety)
-6. Compares models using ROC-AUC (primary) and F1 (tie-break)
-7. Saves the best model with `joblib` to:
-   - `models/best_churn_model.joblib`
-
-## Run the Streamlit App
+Start the dashboard:
 
 ```bash
 streamlit run app.py
 ```
 
-The app collects customer details and predicts churn probability + churn/not-churn using the saved model.
+Optional: use a virtual environment first:
 
-## Notes
+```bash
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-- If `data/WA_Fn-UseC_-Telco-Customer-Churn.csv` is missing, training will fail with a clear message.
+## Live Demo
 
+(Add your Streamlit link here)
+
+## Dataset
+
+Default path:
+
+`data/WA_Fn-UseC_-Telco-Customer-Churn.csv`
+
+If the file is missing, training fails with a clear error.
+
+## Training pipeline (summary)
+
+1. Load data with validation; fix `TotalCharges`, drop rows with missing values
+2. One-hot encode categoricals
+3. Train Logistic Regression, Random Forest, and XGBoost; pick best by ROC-AUC (F1 tie-break)
+4. Save `models/best_churn_model.joblib` for the Streamlit app
